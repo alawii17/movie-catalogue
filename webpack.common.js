@@ -4,6 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+require('dotenv').config({
+  path: path.resolve('.env'),
+});
+
 module.exports = {
   entry: {
     app: path.resolve(__dirname, 'src/scripts/index.js'),
@@ -29,6 +33,10 @@ module.exports = {
     ],
   },
   plugins: [
+    // eslint-disable-next-line no-undef
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
